@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>typography physics</title>
-		<script src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="bower_components/underscore/underscore-min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="  crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.1/p5.js"></script>
 		<style type="text/css">
 			Body{
@@ -43,7 +43,7 @@
 			var r = s/2;
 			var w = 800;
 			var h = 800;
-			var count = 3;
+			var count = 5;
 			var offsets = [];
 
 			function add(a,b){
@@ -54,7 +54,7 @@
 			function setup() {
 				createCanvas(w, h);
 				angleMode(DEGREES);
-				_.times(1, function(){
+				_.times(20, function(){
 					balls.push(ball(Math.random()*800,10));
 				})
 				offsets = _.map(_.range(count), function(i){
@@ -66,7 +66,7 @@
 
 			function draw() {
 				background(255);
-				textSize(58);
+				textSize(68);
 				fill(0);
 				text(lorem, 10, 30, 780, 780);
 				loadPixels();
@@ -78,7 +78,6 @@
 					_.each(offsets, function(offset){
 						var x = ball.position[0]+offset[0];
 						var y = ball.position[1]+offset[1];
-						//set(x, y, color(255, 0,0))
 						if(get(x,y)[0] == 0){
 							hits++;
 							rebound = add(rebound, [offset[2], offset[3]]);
@@ -87,8 +86,8 @@
 					if(hits > 1){
 						rebound[0] = (rebound[0]/hits);
 						rebound[1] = (rebound[1]/hits);
-						// if(ball.velocity[0]) rebound[0] *= Math.abs(ball.velocity[0]);
-						// if(ball.velocity[1]) rebound[1] *= Math.abs(ball.velocity[1]);
+						if(ball.velocity[0]) rebound[0] *= Math.abs(ball.velocity[0]);
+						if(ball.velocity[1]) rebound[1] *= Math.abs(ball.velocity[1]);
 					}
 					if(rebound[0] || rebound[1]){
 						ball.velocity[0] = 0;
